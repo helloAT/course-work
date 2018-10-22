@@ -1,7 +1,10 @@
 import random
 sunx = 50
-cloudx = 100
-cloudy = 100
+suny = 50
+cloud1x = 0
+cloud2x = 600
+mariox = 300
+marioleft = True
 sunleft = False
 sunbottom = False
 
@@ -13,14 +16,23 @@ def draw():
     global suny
     global sunleft
     global sunbottom
+    global cloud1x
+    global cloud2x
+    global mariox
+    global marioleft
+    sun = loadImage("angry_sun.png")
+    cloud = loadImage("mario cloud.png")
+    mario = loadImage("scared mario.png")
+    tree = loadImage("tree.png")
     background(100, 150, 255)
     fill(100, 255, 100)
     noStroke()
     rect(0, 650, 2000, 200)
-    sun = loadImage("i.png")
-    cloud = loadImage("cloud.png")
+    image(tree, 150, 475, 250, 225)
+    image(tree, 700, 475, 250, 225)
     
-    if sunx >= 1300:
+    #sun movement
+    if sunx >= 1200:
         sunleft = True
     elif sunx <= 10:
         sunleft = False
@@ -29,18 +41,41 @@ def draw():
     elif suny <= 10:
         sunbottom = False
     
-    image(sun, sunx, suny, 200, 200)
+    image(sun, sunx, suny, 150, 150)
     
-    if left:
-        sunx -= random.randint(30, 40)
+    if sunleft:
+        sunx -= 30
     else:
-        sunx += random.randint(30, 40)
-    if bottom:
-        suny -= random.randint(30, 40)
+        sunx += 30
+    if sunbottom:
+        suny -= 30
     else:
-        suny += random.randint(30, 40)
-        
+        suny += 30
+    #sun movement
     
+    #mario movement
+    if mariox <= 299:
+        marioleft = True
+    elif mariox >= 1066:
+        marioleft = False
         
+    if marioleft:
+        mariox += 25
+    else:
+        mariox -= 25
+        mario = loadImage("reverse mario.png")
         
+    image(mario, mariox, 550, 145, 180)
+    #mario movement
     
+    #cloud movement
+    cloud1x += 7
+    cloud2x += 4
+    if cloud1x >= 1366:
+        cloud1x = 0
+    if cloud2x >= 1366:
+        cloud2x = 0
+    image(cloud, cloud1x, 10, 100, 100)
+    image(cloud, cloud2x, 100, 100, 100)
+    #cloud movement
+        
