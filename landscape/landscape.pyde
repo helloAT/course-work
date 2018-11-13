@@ -9,29 +9,21 @@ sunleft = False
 sunbottom = False
 
 def setup():
+    global sunx, suny, cloud1x, cloud2x, mariox, marioleft, sunleft, sunbottom, sun, cloud, mario, tree
     size(1366, 768)
-
-def draw():
-    global sunx
-    global suny
-    global sunleft
-    global sunbottom
-    global cloud1x
-    global cloud2x
-    global mariox
-    global marioleft
     sun = loadImage("angry_sun.png")
     cloud = loadImage("mario cloud.png")
     mario = loadImage("scared mario.png")
     tree = loadImage("tree.png")
-    background(100, 150, 255)
-    fill(100, 255, 100)
-    noStroke()
-    rect(0, 650, 2000, 200)
-    image(tree, 150, 475, 250, 225)
-    image(tree, 700, 475, 250, 225)
+
+def draw():
+    draw_background()
+    sun_movement()
+    mario_movement()
     
-    #sun movement
+
+def sun_movement():
+    global sunx, suny, sunleft, sunbottom, sun
     if sunx >= 1200:
         sunleft = True
     elif sunx <= 10:
@@ -51,9 +43,9 @@ def draw():
         suny -= 30
     else:
         suny += 30
-    #sun movement
     
-    #mario movement
+def mario_movement():
+    global mariox, marioleft, mario
     if mariox <= 299:
         marioleft = True
     elif mariox >= 1066:
@@ -66,9 +58,15 @@ def draw():
         mario = loadImage("reverse mario.png")
         
     image(mario, mariox, 550, 145, 180)
-    #mario movement
     
-    #cloud movement
+def draw_background():
+    global tree, cloud1x, cloud2x, cloud
+    background(100, 150, 255)
+    fill(100, 255, 100)
+    noStroke()
+    rect(0, 650, 2000, 200)
+    image(tree, 150, 475, 250, 225)
+    image(tree, 700, 475, 250, 225)
     cloud1x += 7
     cloud2x += 4
     if cloud1x >= 1366:
@@ -77,5 +75,3 @@ def draw():
         cloud2x = 0
     image(cloud, cloud1x, 10, 100, 100)
     image(cloud, cloud2x, 100, 100, 100)
-    #cloud movement
-        
